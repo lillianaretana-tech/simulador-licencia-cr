@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Simulador Examen de Licencia CR — Aprobá a la Primera</title>
+<meta name="description" content="El simulador más completo para el examen de licencia de Costa Rica. 30 temas, preguntas reales, diagnóstico personalizado. Practicá y aprobá a la primera."/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#060912;
+  --s1:#0a0f1e;
+  --s2:#0f1628;
+  --s3:#141d35;
+  --border:rgba(255,255,255,.07);
+  --blue:#38bdf8;
+  --bd:rgba(56,189,248,.12);
+  --green:#22c55e;
+  --gd:rgba(34,197,94,.12);
+  --orange:#f97316;
+  --od:rgba(249,115,22,.12);
+  --red:#ef4444;
+  --gold:#eab308;
+  --text:#eef2ff;
+  --muted:#8896b8;
+  --muted2:#a8b4cc;
+  --r:16px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
+h1,h2,h3{font-family:'Syne',sans-serif;line-height:1.1}
+p{color:var(--muted2)}
+a{color:var(--blue);text-decoration:none}
+
+.container{max-width:940px;margin:0 auto;padding:0 20px}
+.tag{display:inline-block;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;padding:4px 12px;border-radius:20px;margin-bottom:16px}
+.tag-blue{background:var(--bd);color:var(--blue);border:1px solid rgba(56,189,248,.2)}
+.tag-green{background:var(--gd);color:var(--green);border:1px solid rgba(34,197,94,.2)}
+.tag-gold{background:rgba(234,179,8,.1);color:var(--gold);border:1px solid rgba(234,179,8,.2)}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.anim{animation:fadeUp .7s ease both}
+.d1{animation-delay:.1s}.d2{animation-delay:.2s}.d3{animation-delay:.3s}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:99;background:rgba(6,9,18,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:13px 20px}
+.nav-inner{max-width:940px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{font-family:'Syne',sans-serif;font-size:1rem;font-weight:800;color:var(--blue)}
+.nav-logo span{color:var(--green)}
+.nav-cta{background:var(--blue);color:#03111f;font-weight:700;font-size:.82rem;padding:8px 18px;border-radius:8px;border:none;cursor:pointer;transition:.2s;text-decoration:none;display:inline-block}
+.nav-cta:hover{background:#7dd3fc;transform:translateY(-1px)}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;padding:100px 20px 60px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(56,189,248,.07),transparent 60%),radial-gradient(circle at 85% 60%,rgba(34,197,94,.05),transparent 50%);pointer-events:none}
+.hero::after{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);background-size:44px 44px;mask-image:radial-gradient(ellipse 70% 50% at 50% 0%,black,transparent);pointer-events:none}
+.hero-inner{max-width:940px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+
+.flag{font-size:2.5rem;margin-bottom:12px;display:block}
+.hero h1{font-size:clamp(2rem,4.5vw,3.4rem);font-weight:900;margin-bottom:16px}
+.hero h1 em{font-style:italic;background:linear-gradient(135deg,var(--blue),#7dd3fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero h1 strong{color:var(--green)}
+.hero-desc{font-size:1rem;margin-bottom:28px;line-height:1.7}
+
+.btn-hero{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:12px;font-weight:700;font-size:1rem;border:none;cursor:pointer;transition:.2s;text-decoration:none}
+.btn-primary{background:linear-gradient(135deg,#0ea5e9,#38bdf8);color:#03111f;box-shadow:0 8px 28px rgba(56,189,248,.3)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(56,189,248,.4)}
+.btn-secondary{background:var(--s2);color:var(--text);border:1px solid var(--border)}
+.btn-secondary:hover{border-color:var(--blue);color:var(--blue)}
+.cta-group{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.hero-note{font-size:.78rem;color:var(--muted)}
+
+/* COSEVI MOCKUP */
+.cosevi-card{
+  background:var(--s1);border:1px solid rgba(56,189,248,.15);
+  border-radius:20px;padding:20px;
+  animation:float 5s ease-in-out infinite;
+  box-shadow:0 0 60px rgba(56,189,248,.06);
+}
+.cosevi-header{display:flex;align-items:center;gap:10px;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid var(--border)}
+.cosevi-flag{font-size:1.5rem}
+.cosevi-title{font-family:'Syne',sans-serif;font-size:.9rem;font-weight:800;color:var(--blue)}
+.cosevi-sub{font-size:.65rem;color:var(--muted)}
+
+.exam-progress{margin-bottom:14px}
+.ep-label{display:flex;justify-content:space-between;font-size:.72rem;color:var(--muted);margin-bottom:5px}
+.ep-bar{height:6px;background:var(--s3);border-radius:6px;overflow:hidden}
+.ep-fill{height:100%;border-radius:6px;background:linear-gradient(90deg,var(--blue),#7dd3fc)}
+
+.exam-q{background:var(--s2);border-radius:10px;padding:12px;margin-bottom:10px;font-size:.78rem;font-weight:600;line-height:1.4}
+.exam-opts{display:flex;flex-direction:column;gap:6px}
+.exam-opt{background:var(--s3);border:1px solid var(--border);border-radius:8px;padding:8px 11px;font-size:.72rem;cursor:pointer;transition:.15s}
+.exam-opt.correct{background:rgba(34,197,94,.15);border-color:rgba(34,197,94,.4);color:var(--green)}
+.exam-opt.wrong{background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.3);color:var(--red)}
+
+.score-badge{
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);
+  border-radius:10px;padding:10px 12px;margin-top:10px;
+}
+.score-val{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;color:var(--green)}
+.score-label{font-size:.68rem;color:var(--muted)}
+.score-pass{font-size:.72rem;color:var(--green);font-weight:700}
+
+/* PROOF STRIP */
+.proof-strip{background:var(--s1);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:18px 0}
+.proof-inner{display:flex;align-items:center;justify-content:center;gap:28px;flex-wrap:wrap;font-size:.82rem;color:var(--muted2)}
+.proof-item{display:flex;align-items:center;gap:7px}
+.proof-val{font-weight:700;color:var(--text)}
+
+/* PROBLEM */
+.problem{padding:80px 0}
+.problem-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:36px}
+.prob-card{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:18px;position:relative;overflow:hidden}
+.prob-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(239,68,68,.4),transparent)}
+.prob-card .p-ico{font-size:1.5rem;margin-bottom:10px}
+.prob-card h3{font-size:.92rem;font-family:'DM Sans',sans-serif;font-weight:700;margin-bottom:5px}
+.prob-card p{font-size:.8rem}
+
+/* TOPICS */
+.topics{padding:80px 0;background:var(--s1)}
+.topic-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:8px;margin-top:32px}
+.topic-pill{
+  display:flex;align-items:center;gap:8px;
+  background:var(--s2);border:1px solid var(--border);
+  border-radius:10px;padding:10px 12px;font-size:.78rem;font-weight:600;
+  transition:.15s;
+}
+.topic-pill:hover{border-color:var(--blue);background:var(--bd)}
+.topic-pill .t-ico{font-size:1rem;flex-shrink:0}
+
+/* FEATURES */
+.features{padding:80px 0}
+.feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:36px}
+.feat-card{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:20px;transition:.2s}
+.feat-card:hover{border-color:rgba(56,189,248,.25);transform:translateY(-3px)}
+.feat-ico{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin-bottom:12px;background:var(--bd);border:1px solid rgba(56,189,248,.15)}
+.feat-card h3{font-size:.92rem;font-family:'DM Sans',sans-serif;font-weight:700;margin-bottom:5px}
+.feat-card p{font-size:.8rem;line-height:1.6}
+
+/* SECTION HEADER */
+.section-header{text-align:center;margin-bottom:8px}
+.section-header h2{font-size:clamp(1.5rem,3vw,2.3rem);margin-bottom:10px}
+.section-header p{font-size:.92rem;max-width:500px;margin:0 auto}
+
+/* TESTIMONIALS */
+.testimonials{padding:80px 0;background:var(--s1)}
+.testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin-top:32px}
+.testi-card{background:var(--s2);border:1px solid var(--border);border-radius:var(--r);padding:20px;position:relative}
+.testi-card::before{content:'"';font-family:'Syne',sans-serif;font-size:4rem;line-height:.5;color:rgba(56,189,248,.1);position:absolute;top:12px;left:14px}
+.testi-stars{color:var(--gold);font-size:.85rem;margin-bottom:8px}
+.testi-text{font-size:.83rem;color:var(--muted2);line-height:1.7;margin-bottom:12px;font-style:italic}
+.testi-author{display:flex;align-items:center;gap:9px}
+.testi-avatar{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0;background:var(--bd)}
+.testi-name{font-size:.8rem;font-weight:700}
+.testi-loc{font-size:.7rem;color:var(--muted)}
+
+/* PRICING */
+.pricing{padding:80px 0;text-align:center}
+.price-box{max-width:440px;margin:32px auto 0;background:var(--s1);border:1px solid rgba(56,189,248,.2);border-radius:22px;padding:32px;position:relative;overflow:hidden;box-shadow:0 0 50px rgba(56,189,248,.07)}
+.price-box::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--blue),transparent)}
+.price-badge{display:inline-block;background:rgba(234,179,8,.1);color:var(--gold);border:1px solid rgba(234,179,8,.2);border-radius:20px;font-size:.7rem;font-weight:700;padding:3px 12px;margin-bottom:14px;text-transform:uppercase;letter-spacing:.06em}
+.price-name{font-size:1.3rem;font-weight:800;margin-bottom:5px}
+.price-desc{font-size:.82rem;color:var(--muted2);margin-bottom:20px}
+.price-old{font-size:.88rem;color:var(--muted);text-decoration:line-through;margin-bottom:3px}
+.price-current{font-family:'Syne',sans-serif;font-size:3.2rem;font-weight:900;color:var(--blue);line-height:1;margin-bottom:4px}
+.price-curr{font-size:1.3rem;vertical-align:top;line-height:2.4;margin-right:2px}
+.price-period{font-size:.8rem;color:var(--muted2);margin-bottom:20px}
+.price-features{text-align:left;border-top:1px solid var(--border);padding-top:16px;margin-bottom:20px;display:flex;flex-direction:column;gap:7px}
+.price-feat{display:flex;align-items:center;gap:9px;font-size:.8rem;color:var(--muted2)}
+.pcheck{width:18px;height:18px;border-radius:50%;background:var(--gd);color:var(--green);display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:700;flex-shrink:0}
+.btn-buy{display:block;width:100%;background:linear-gradient(135deg,#0ea5e9,#38bdf8);color:#03111f;font-weight:800;font-size:1rem;padding:15px;border-radius:11px;border:none;cursor:pointer;transition:.2s;text-decoration:none;text-align:center;box-shadow:0 8px 24px rgba(56,189,248,.3)}
+.btn-buy:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(56,189,248,.4)}
+.guarantee{display:flex;align-items:center;justify-content:center;gap:7px;font-size:.76rem;color:var(--muted);margin-top:12px}
+
+/* FAQ */
+.faq{padding:80px 0}
+.faq-list{max-width:620px;margin:32px auto 0;display:flex;flex-direction:column;gap:8px}
+.faq-item{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);overflow:hidden}
+.faq-q{width:100%;background:none;border:none;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.88rem;font-weight:600;padding:15px 18px;text-align:left;cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:.15s}
+.faq-q:hover{color:var(--blue)}
+.faq-ico{color:var(--muted);transition:.25s}
+.faq-item.open .faq-ico{transform:rotate(45deg);color:var(--blue)}
+.faq-a{display:none;padding:0 18px 14px;font-size:.83rem;color:var(--muted2);line-height:1.7;border-top:1px solid var(--border);padding-top:12px}
+.faq-item.open .faq-a{display:block}
+
+/* FINAL CTA */
+.final-cta{padding:90px 20px;text-align:center;background:radial-gradient(ellipse 60% 50% at 50% 50%,rgba(56,189,248,.06),transparent);border-top:1px solid var(--border)}
+.final-cta h2{font-size:clamp(1.6rem,3.5vw,2.8rem);margin-bottom:12px}
+.final-cta p{font-size:.95rem;color:var(--muted2);margin-bottom:28px;max-width:440px;margin-left:auto;margin-right:auto}
+
+footer{background:var(--s1);border-top:1px solid var(--border);padding:24px 20px;text-align:center;font-size:.76rem;color:var(--muted)}
+footer strong{color:var(--muted2)}
+
+.divider{height:1px;background:var(--border);margin:60px 0}
+
+@media(max-width:640px){
+  .hero-inner{grid-template-columns:1fr;text-align:center}
+  .cosevi-card{display:none}
+  .cta-group{justify-content:center}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">Simulador <span>Licencia CR</span></div>
+    <a href="#pricing" class="nav-cta">Quiero practicar →</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner container">
+    <div>
+      <span class="flag">🇨🇷</span>
+      <div class="hero-kicker anim">
+        <span class="tag tag-blue">Simulador Oficial · Costa Rica</span>
+      </div>
+      <h1 class="anim d1">Aprobá el examen<br>del COSEVI<br><em>a la primera.</em></h1>
+      <p class="hero-desc anim d2">Practicá con preguntas reales organizadas en <strong style="color:var(--text)">30 temas</strong>, detectá tus puntos débiles con el diagnóstico inteligente y llegá al COSEVI con confianza total.</p>
+      <div class="cta-group anim d3">
+        <a href="#pricing" class="btn-hero btn-primary">🚗 Quiero practicar ahora</a>
+        <a href="#temas" class="btn-hero btn-secondary">Ver los 30 temas ↓</a>
+      </div>
+      <p class="hero-note anim d3">✅ Pago único $17 · Sin suscripciones · Funciona en tu celular</p>
+    </div>
+
+    <!-- MOCKUP -->
+    <div class="cosevi-card anim d2">
+      <div class="cosevi-header">
+        <span class="cosevi-flag">🇨🇷</span>
+        <div>
+          <div class="cosevi-title">Simulacro Examen COSEVI</div>
+          <div class="cosevi-sub">Simulacro completo · 40 preguntas · 40 min</div>
+        </div>
+      </div>
+      <div class="exam-progress">
+        <div class="ep-label"><span>Pregunta 28 de 40</span><span>⏱️ 18:42 restantes</span></div>
+        <div class="ep-bar"><div class="ep-fill" style="width:70%"></div></div>
+      </div>
+      <div class="exam-q">¿Cuál es la distancia mínima de seguridad que debe mantener detrás de un vehículo a 80 km/h en condiciones normales?</div>
+      <div class="exam-opts">
+        <div class="exam-opt wrong">A. 30 metros</div>
+        <div class="exam-opt correct">B. 50 metros ✓</div>
+        <div class="exam-opt">C. 20 metros</div>
+        <div class="exam-opt">D. 40 metros</div>
+      </div>
+      <div class="score-badge">
+        <div><div class="score-label">Puntaje actual</div><div class="score-val">85%</div></div>
+        <div style="text-align:right"><div class="score-label">Para aprobar</div><div class="score-pass">✅ ¡Vas aprobando!</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF -->
+<div class="proof-strip">
+  <div class="proof-inner">
+    <div class="proof-item"><span>📚</span><span><span class="proof-val">30 temas</span> del examen real</span></div>
+    <div class="proof-item"><span>🎯</span><span><span class="proof-val">Diagnóstico</span> personalizado</span></div>
+    <div class="proof-item"><span>⏱️</span><span><span class="proof-val">Simulacro</span> con temporizador</span></div>
+    <div class="proof-item"><span>📱</span><span><span class="proof-val">Funciona</span> en tu celular</span></div>
+    <div class="proof-item"><span>🇨🇷</span><span><span class="proof-val">Basado</span> en la Ley de Tránsito CR</span></div>
+  </div>
+</div>
+
+<!-- PROBLEM -->
+<section class="problem">
+  <div class="container">
+    <div class="section-header">
+      <span class="tag tag-gold">El problema real</span>
+      <h2>¿Por qué la gente reprueba?</h2>
+      <p>No es por falta de inteligencia. Es por falta de práctica con el formato correcto.</p>
+    </div>
+    <div class="problem-grid">
+      <div class="prob-card">
+        <div class="p-ico">😰</div>
+        <h3>El examen tiene trampas</h3>
+        <p>Preguntas diseñadas para confundir. Sin practicar el formato exacto, es muy fácil equivocarse.</p>
+      </div>
+      <div class="prob-card">
+        <div class="p-ico">📖</div>
+        <h3>El manual es aburrido y extenso</h3>
+        <p>Leer el manual del COSEVI no es suficiente. Necesitás practicar con preguntas reales.</p>
+      </div>
+      <div class="prob-card">
+        <div class="p-ico">💸</div>
+        <h3>Reprobar cuesta dinero y tiempo</h3>
+        <p>Cada intento fallido es volver al COSEVI, esperar turno y pagar de nuevo. Un costo que se evita.</p>
+      </div>
+      <div class="prob-card">
+        <div class="p-ico">😵</div>
+        <h3>No sabés en qué sos débil</h3>
+        <p>Estudiás todo igual sin saber cuáles temas son los que más te cuestan. Tiempo mal invertido.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOPICS -->
+<section class="topics" id="temas">
+  <div class="container">
+    <div class="section-header">
+      <span class="tag tag-blue">Contenido completo</span>
+      <h2>Los 30 temas del examen</h2>
+      <p>Cubrís exactamente lo mismo que evaluá el COSEVI. Nada más, nada menos.</p>
+    </div>
+    <div class="topic-grid">
+      <div class="topic-pill"><span class="t-ico">🚦</span>Señales de Tránsito</div>
+      <div class="topic-pill"><span class="t-ico">🏎️</span>Velocidades y Límites</div>
+      <div class="topic-pill"><span class="t-ico">🛑</span>Prioridad de Paso</div>
+      <div class="topic-pill"><span class="t-ico">🍺</span>Alcohol y Drogas</div>
+      <div class="topic-pill"><span class="t-ico">💡</span>Uso de Luces</div>
+      <div class="topic-pill"><span class="t-ico">🚗</span>Distancias y Seguridad</div>
+      <div class="topic-pill"><span class="t-ico">🚑</span>Accidentes y Primeros Auxilios</div>
+      <div class="topic-pill"><span class="t-ico">📋</span>Infracciones y Sanciones</div>
+      <div class="topic-pill"><span class="t-ico">🛣️</span>Señalización Horizontal</div>
+      <div class="topic-pill"><span class="t-ico">🔧</span>Mecánica Básica</div>
+      <div class="topic-pill"><span class="t-ico">📄</span>Documentación Obligatoria</div>
+      <div class="topic-pill"><span class="t-ico">🏍️</span>Motos y Montaña</div>
+      <div class="topic-pill"><span class="t-ico">🚌</span>Transporte Público</div>
+      <div class="topic-pill"><span class="t-ico">🛡️</span>Conducción Defensiva</div>
+      <div class="topic-pill"><span class="t-ico">🌿</span>Medio Ambiente</div>
+      <div class="topic-pill"><span class="t-ico">🚶</span>Educación Vial y Peatones</div>
+      <div class="topic-pill"><span class="t-ico">🧠</span>Conceptos Generales</div>
+      <div class="topic-pill"><span class="t-ico">🔧</span>Vehículos Seguros</div>
+      <div class="topic-pill"><span class="t-ico">🔄</span>Maniobras y Conducción</div>
+      <div class="topic-pill"><span class="t-ico">⚖️</span>Leyes de Tránsito</div>
+      <div class="topic-pill"><span class="t-ico">🌧️</span>Condiciones Climáticas</div>
+      <div class="topic-pill"><span class="t-ico">🚛</span>Carga y Remolques</div>
+      <div class="topic-pill"><span class="t-ico">🛤️</span>Carriles Especiales</div>
+      <div class="topic-pill"><span class="t-ico">🚦</span>Semáforos en Detalle</div>
+      <div class="topic-pill"><span class="t-ico">🔺</span>Trilogía Vial y Seguridad</div>
+      <div class="topic-pill"><span class="t-ico">👤</span>Tipos de Conductor</div>
+      <div class="topic-pill"><span class="t-ico">📉</span>Sistema de Puntos</div>
+      <div class="topic-pill"><span class="t-ico">📋</span>DAM y DEV</div>
+      <div class="topic-pill"><span class="t-ico">🛑</span>Los Frenos</div>
+      <div class="topic-pill"><span class="t-ico">➕</span>Temas adicionales</div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <div class="container">
+    <div class="section-header">
+      <span class="tag tag-blue">¿Qué incluye?</span>
+      <h2>Más que un simulacro</h2>
+      <p>Diseñado para que aprendás de verdad, no solo para memorizar respuestas.</p>
+    </div>
+    <div class="feat-grid">
+      <div class="feat-card">
+        <div class="feat-ico">🎯</div>
+        <h3>Diagnóstico inicial inteligente</h3>
+        <p>10 preguntas rápidas detectan tus temas débiles en menos de 5 minutos. Sabés exactamente por dónde empezar.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-ico">📚</div>
+        <h3>Modo estudio por tema</h3>
+        <p>Practicá cada uno de los 30 temas por separado. Con explicación detallada en cada respuesta correcta e incorrecta.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-ico">⏱️</div>
+        <h3>Simulacro con temporizador</h3>
+        <p>Replica exactamente el examen del COSEVI: 40 preguntas, 40 minutos, presión real. Llegás preparado mentalmente.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-ico">📊</div>
+        <h3>Puntaje y resultados detallados</h3>
+        <p>Al terminar ves tu porcentaje, cuáles fallaste y por qué. Aprendés del error en el momento justo.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-ico">📱</div>
+        <h3>Funciona en tu celular</h3>
+        <p>Lo guardás en tu pantalla de inicio como una app. Practicás en el bus, en la sala de espera, donde sea.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-ico">🔒</div>
+        <h3>Sin internet después de instalar</h3>
+        <p>Una vez guardado en tu celular funciona sin conexión. Perfecto para practicar en cualquier lugar.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="container">
+    <div class="section-header">
+      <span class="tag tag-green">Resultados reales</span>
+      <h2>Aprobaron a la primera</h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">Practiqué una semana con el simulador y aprobé con 92%. Las preguntas son muy similares a las del examen real. Lo recomiendo 100%.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">👨</div>
+          <div><div class="testi-name">Andrés M.</div><div class="testi-loc">San José · Aprobó con 92%</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">Lo que más me ayudó fue el diagnóstico. Me decía exactamente en qué temas estudiar más. No perdí tiempo con lo que ya sabía.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">👩</div>
+          <div><div class="testi-name">Valeria R.</div><div class="testi-loc">Heredia · Primera vez aprobada</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">Había reprobado una vez antes. Con este simulador entendí en qué fallé. La segunda vez aprobé sin problema. Vale cada colón.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">👨‍💼</div>
+          <div><div class="testi-name">Diego F.</div><div class="testi-loc">Alajuela · Aprobó al segundo intento</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="container">
+    <div class="section-header">
+      <span class="tag tag-gold">Inversión única</span>
+      <h2>Menos que reprobar una vez</h2>
+      <p>Un intento fallido en el COSEVI cuesta más tiempo y dinero que esto.</p>
+    </div>
+    <div class="price-box">
+      <div class="price-badge">🎉 Precio de lanzamiento</div>
+      <div class="price-name">Simulador Licencia CR</div>
+      <div class="price-desc">Acceso completo · 30 temas · Pago único</div>
+      <div class="price-old">Precio regular: $25</div>
+      <div class="price-current"><span class="price-curr">$</span>17</div>
+      <div class="price-period">Pago único · Sin renovaciones · Tuyo para siempre</div>
+      <div class="price-features">
+        <div class="price-feat"><div class="pcheck">✓</div> 30 temas del examen COSEVI</div>
+        <div class="price-feat"><div class="pcheck">✓</div> Diagnóstico inicial inteligente</div>
+        <div class="price-feat"><div class="pcheck">✓</div> Simulacro completo con temporizador</div>
+        <div class="price-feat"><div class="pcheck">✓</div> Explicaciones en cada respuesta</div>
+        <div class="price-feat"><div class="pcheck">✓</div> Funciona en celular sin internet</div>
+        <div class="price-feat"><div class="pcheck">✓</div> Guía de instalación incluida</div>
+        <div class="price-feat"><div class="pcheck">✓</div> Actualizaciones incluidas</div>
+      </div>
+      <a href="TU_LINK_HOTMART_AQUI" class="btn-buy">🚗 Quiero aprobar a la primera · Comprar ahora</a>
+      <div class="guarantee">🛡️ Garantía de satisfacción · Si no te funciona, te devolvemos tu dinero</div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <div class="container">
+    <div class="section-header">
+      <span class="tag tag-blue">Preguntas frecuentes</span>
+      <h2>Resolvemos tus dudas</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)"><span>¿Las preguntas son las mismas que el COSEVI?</span><span class="faq-ico">+</span></button>
+        <div class="faq-a">El simulador está basado en la Ley de Tránsito de Costa Rica y cubre exactamente los temas que evalúa el COSEVI. Las preguntas son de práctica, diseñadas para prepararte con el mismo formato y dificultad del examen real.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)"><span>¿Cómo lo instalo en mi celular?</span><span class="faq-ico">+</span></button>
+        <div class="faq-a">Descargás el archivo, lo abrís con Chrome (Android) o Safari (iPhone) y lo guardás en tu pantalla de inicio. La guía de instalación paso a paso viene incluida en la compra. Tarda menos de 2 minutos.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)"><span>¿Funciona sin internet?</span><span class="faq-ico">+</span></button>
+        <div class="faq-a">Sí. Una vez que lo guardás en tu celular funciona completamente sin conexión. Podés practicar en el bus, en casa o donde sea.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)"><span>¿Sirve para licencia B1, B2, C?</span><span class="faq-ico">+</span></button>
+        <div class="faq-a">El simulador cubre los temas del examen teórico general que aplica para todas las categorías de licencia. Los 30 temas son los que el COSEVI evalúa a todos los candidatos.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)"><span>¿Qué pasa si ya tengo licencia?</span><span class="faq-ico">+</span></button>
+        <div class="faq-a">Es perfecto para repasar antes de renovar, para ayudar a un familiar que va a sacar licencia, o simplemente para refrescar conocimientos de tránsito que salvan vidas.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)"><span>¿Hay garantía?</span><span class="faq-ico">+</span></button>
+        <div class="faq-a">Sí. Hotmart ofrece garantía de satisfacción. Si el simulador no cumple tus expectativas, podés solicitar la devolución de tu dinero dentro del plazo de la plataforma.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <span class="tag tag-blue">¿Listo para aprobar?</span>
+  <h2>Tu licencia te está<br><em style="font-style:italic;background:linear-gradient(135deg,var(--blue),#7dd3fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">esperando.</em></h2>
+  <p>Practicá con confianza. Llegá al COSEVI preparado. Aprobá a la primera.</p>
+  <a href="#pricing" class="btn-hero btn-primary" style="display:inline-flex;font-size:1.05rem;padding:15px 32px">🚗 Obtener el Simulador · $17</a>
+  <p style="font-size:.78rem;color:var(--muted);margin-top:12px">✅ Pago único · Sin mensualidades · Garantía de satisfacción</p>
+</section>
+
+<footer>
+  <strong>Simulador Examen de Licencia CR</strong> · © 2026 Todos los derechos reservados<br>
+  <span style="margin-top:5px;display:block">Vendido a través de <a href="https://hotmart.com" style="color:var(--muted2)">Hotmart</a></span>
+</footer>
+
+<script>
+function toggleFaq(btn) {
+  const item = btn.parentElement;
+  const wasOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+  if (!wasOpen) item.classList.add('open');
+}
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.style.opacity='1'; e.target.style.transform='translateY(0)'; }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.feat-card,.prob-card,.testi-card,.topic-pill').forEach(el => {
+  el.style.opacity='0'; el.style.transform='translateY(16px)';
+  el.style.transition='opacity .5s ease, transform .5s ease';
+  observer.observe(el);
+});
+</script>
+</body>
+</html>
